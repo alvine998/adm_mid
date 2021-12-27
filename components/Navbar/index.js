@@ -5,17 +5,17 @@ export default function Navbar(props) {
         <div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Midland Properti</a>
+                    <a class="navbar-brand" href="/dashboard">Midland Properti</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a className={'nav-link ' + (props.beranda ? "active" : "")} aria-current="page" href="#">Beranda</a>
+                                <a className={'nav-link ' + (props.beranda ? "active" : "")} aria-current="page" href="/dashboard">Beranda</a>
                             </li>
                             <li class="nav-item">
-                                <a className={'nav-link ' + (props.banner ? "active" : "")} href="#">Banner</a>
+                                <a className={'nav-link ' + (props.banner ? "active" : "")} href="/banner">Banner</a>
                             </li>
                             <li class="nav-item">
                                 <a className={'nav-link ' + (props.rekrut ? "active" : "")} href="#">Rekrutmen</a>
@@ -35,7 +35,7 @@ export default function Navbar(props) {
                                 <a className={'nav-link ' + (props.kontak ? "active" : "")} href="#">Kontak Kami</a>
                             </li>
                             <li class="nav-item">
-                                <a className={'nav-link ' + (props.profil ? "active" : "")} href="#">Profil Kami</a>
+                                <a className={'nav-link ' + (props.profil ? "active" : "")} href="/profil">Profil Kami</a>
                             </li>
                         </ul>
                         <form class="d-flex">
