@@ -1,6 +1,10 @@
 import React from 'react'
 
 export default function Navbar(props) {
+    const onLogout = () => {
+        props.history('/')
+    }
+
     return (
         <div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -32,7 +36,7 @@ export default function Navbar(props) {
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a className={'nav-link ' + (props.kontak ? "active" : "")} href="#">Kontak Kami</a>
+                                <a className={'nav-link ' + (props.kontak ? "active" : "")} href="/kontak">Kontak Kami</a>
                             </li>
                             <li class="nav-item">
                                 <a className={'nav-link ' + (props.profil ? "active" : "")} href="/profil">Profil Kami</a>
