@@ -22,7 +22,7 @@ export default function Navbar(props) {
                                 <a className={'nav-link ' + (props.banner ? "active" : "")} href="/banner">Banner</a>
                             </li>
                             <li class="nav-item">
-                                <a className={'nav-link ' + (props.rekrut ? "active" : "")} href="#">Rekrutmen</a>
+                                <a className={'nav-link ' + (props.rekrut ? "active" : "")} href="/rekrutmen">Rekrutmen</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a className={'nav-link dropdown-toggle ' + (props.cluster ? "active" : "")} href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
