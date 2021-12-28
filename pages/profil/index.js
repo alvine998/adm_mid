@@ -38,6 +38,10 @@ export default function Profil(props) {
                         <textarea className='form-control' rows={2} placeholder='Ketik disini ....' type={"text"} />
                     </div>
                     <div style={{ paddingTop: 20 }}>
+                        <h5>Lokasi Perusahaan</h5>
+                        <input className='form-control' placeholder='Salin URL dari Google Maps' type={"text"} />
+                    </div>
+                    <div style={{ paddingTop: 20 }}>
                         <h5>Logo Perusahaan</h5>
                         <input className='form-control' placeholder='Ketik disini ....' type={"file"} />
                     </div>
