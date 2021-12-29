@@ -27,7 +27,7 @@ function Rekrutmen(props) {
                                     <td>Mark</td>
                                     <td>Otto</td>
                                     <td>@mdo</td>
-                                    <td><button className='btn btn-outline-danger'>Hapus</button></td>
+                                    <td><button className='btn btn-outline-success'>Edit</button><button className='btn btn-outline-danger' style={{marginLeft:10}}>Hapus</button></td>
                                 </tr>
                             </tbody>
                         </table>

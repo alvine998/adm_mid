@@ -1,6 +1,8 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar';
 import styles from '../../styles/Home.module.css';
+import swal from 'sweetalert';
 
 export default function Banner(props) {
     const [image, setImage] = useState(null);
@@ -21,11 +23,44 @@ export default function Banner(props) {
     }
 
     const getDataBanner = () => {
+        axios.get(`http://localhost:4000/banners`).then(
+            res => {
+                const collection = res.data;
+                setCollection(collection)
+            }
+        )
+    }
 
+    const saveImage = () => {
+        let formdata = new FormData();
+        formdata.append("images", image)
+
+        axios.post('http://localhost:4000/resources/upload', formdata).then(
+            res => {
+                console.log(res.data)
+            }
+        )
+    }
+
+    const saveBanner = () => {
+        const data = {
+            judul: judul,
+            images: image.name
+        }
+
+        console.log(data)
+
+        axios.post('http://localhost:4000/banners', data).then(
+            res => {
+                console.log(res.data);
+                setImage(null);
+                swal("Sukses Simpan Banner", {icon:'success'})
+            }
+        )
     }
 
     useEffect(() => {
-
+        getDataBanner();
     }, [])
 
     return (
@@ -51,16 +86,16 @@ export default function Banner(props) {
                                             <label>Judul :</label>
                                             <input type={"text"} onChange={handleJudul} placeholder='Ketik disini ....' className='form-control' />
                                         </div>
-                                        <div style={{paddingTop:10}}>
+                                        <div style={{ paddingTop: 10 }}>
                                             <label>Gambar Banner :</label>
                                             <input type={"file"} placeholder='Ketik disini ....' className='form-control' onChange={onChangeImage} />
-                                            <img style={{marginTop:10, width:200, height:100, marginLeft:130}} src={imageName} />
+                                            <img style={{ marginTop: 10, width: 200, height: 100, marginLeft: 130 }} src={imageName} />
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-primary" onClick={saveBanner}>Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -77,12 +112,16 @@ export default function Banner(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
+                            {
+                                collection.reverse().map((res, i) => (
+                                    <tr key={i}>
+                                        <th scope="row">{i + 1}</th>
+                                        <td>{res.judul}</td>
+                                        <td>{res.images}</td>
+                                        <td><button className='btn btn-outline-danger'>Hapus</button></td>
+                                    </tr>
+                                ))
+                            }
                         </tbody>
                     </table>
                 </div>
