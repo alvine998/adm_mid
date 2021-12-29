@@ -45,17 +45,23 @@ export default function Banner(props) {
     const saveBanner = () => {
         const data = {
             judul: judul,
-            images: image.name
+            images: 'image-' + image.name
         }
 
         console.log(data)
 
-        axios.post('http://localhost:4000/banners', data).then(
-            res => {
-                console.log(res.data);
-                setImage(null);
-                swal("Sukses Simpan Banner", {icon:'success'})
-            }
+        // axios.post('http://localhost:4000/banners', data).then(
+        //     res => {
+        //         console.log(res.data);
+        //         setImage(null);
+        //         swal("Sukses Simpan Banner", {icon:'success'})
+        //     }
+        // )
+    }
+
+    const deleteBanner = (id) => {
+        axios.delete(`http://localhost:4000/banners/${id}`).then(
+            res => swal("Sukses Hapus Banner", {icon:'success'})
         )
     }
 
@@ -95,7 +101,7 @@ export default function Banner(props) {
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" onClick={saveBanner}>Save changes</button>
+                                    <button type="button" class="btn btn-primary" onClick={saveBanner(), saveImage()}>Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +124,7 @@ export default function Banner(props) {
                                         <th scope="row">{i + 1}</th>
                                         <td>{res.judul}</td>
                                         <td>{res.images}</td>
-                                        <td><button className='btn btn-outline-danger'>Hapus</button></td>
+                                        <td><button className='btn btn-outline-danger' onClick={deleteBanner(res._id)}>Hapus</button></td>
                                     </tr>
                                 ))
                             }
