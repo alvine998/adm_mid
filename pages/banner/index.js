@@ -2,10 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar';
 import styles from '../../styles/Home.module.css';
+import FormData from 'form-data';
 import swal from 'sweetalert';
 
 export default function Banner(props) {
-    const [image, setImage] = useState(null);
+    const [images, setImages] = useState(null);
     const [imageName, setImageName] = useState(null);
     const [judul, setJudul] = useState('');
     const [collection, setCollection] = useState([]);
@@ -13,7 +14,7 @@ export default function Banner(props) {
     const onChangeImage = (e) => {
         if (e.target.files && e.target.files[0]) {
             let img = e.target.files[0];
-            setImage(img);
+            setImages(img);
             setImageName(URL.createObjectURL(img));
         }
     }
@@ -33,7 +34,7 @@ export default function Banner(props) {
 
     const saveImage = () => {
         let formdata = new FormData();
-        formdata.append("images", image)
+        formdata.append("image", images)
 
         axios.post('http://localhost:4000/resources/upload', formdata).then(
             res => {
@@ -44,19 +45,21 @@ export default function Banner(props) {
 
     const saveBanner = () => {
         const data = {
-            judul: judul,
-            images: 'image-' + image.name
+            nama: judul,
+            image: 'image_' + images.name
         }
 
         console.log(data)
 
-        // axios.post('http://localhost:4000/banners', data).then(
-        //     res => {
-        //         console.log(res.data);
-        //         setImage(null);
-        //         swal("Sukses Simpan Banner", {icon:'success'})
-        //     }
-        // )
+        axios.post('http://localhost:4000/banners', data).then(
+            res => {
+                console.log(res.data);
+                setImages(null);
+                setJudul("");
+                getDataBanner();
+                swal("Sukses Simpan Banner", {icon:'success'})
+            }
+        )
     }
 
     const deleteBanner = (id) => {
@@ -101,7 +104,7 @@ export default function Banner(props) {
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" onClick={saveBanner(), saveImage()}>Save changes</button>
+                                    <button type="button" class="btn btn-primary" onClick={() => {saveBanner();saveImage()}}>Save changes</button>
                                 </div>
                             </div>
                         </div>
