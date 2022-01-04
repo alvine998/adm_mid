@@ -1,7 +1,39 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import swal from 'sweetalert';
 import Navbar from '../../components/Navbar';
 
 function Rekrutmen(props) {
+
+    const [collection, setCollection] = useState([]);
+
+    const dataLowongan = (id) => {
+        localStorage.setItem('karirKey', id)
+    }
+
+    const getDataLowongan = () => {
+        axios.get(`http://localhost:4000/karirs`).then(
+            res => {
+                const collection = res.data;
+                console.log(collection);
+                setCollection(collection)
+            }
+        )
+    }
+
+    const deleteLowongan = (id) => {
+        axios.delete(`http://localhost:4000/karirs/${id}`).then(
+            res => {
+                swal("Sukses Tambah Lowongan", { icon: 'success' })
+                getDataLowongan();
+            }
+        )
+    }
+
+    useEffect(() => {
+        getDataLowongan();
+    }, [])
+
     return (
         <div>
             <Navbar rekrut />
@@ -22,13 +54,17 @@ function Rekrutmen(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td><button className='btn btn-outline-success'>Edit</button><button className='btn btn-outline-danger' style={{marginLeft:10}}>Hapus</button></td>
-                                </tr>
+                                {
+                                    collection && collection.reverse().map((res, i) => (
+                                        <tr key={i}>
+                                            <th scope="row">{i + 1}</th>
+                                            <td>{res.nama}</td>
+                                            <td>{res.detail}</td>
+                                            <td>{res.syarat}</td>
+                                            <td><a href={`/tambah-lowongan?id=${res._id}`}  className='btn btn-outline-success'>Edit</a><button className='btn btn-outline-danger' style={{ marginLeft: 10 }} onClick={()=>deleteLowongan(res._id)}>Hapus</button></td>
+                                        </tr>
+                                    ))
+                                }
                             </tbody>
                         </table>
                     </div>
