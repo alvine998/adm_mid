@@ -36,7 +36,7 @@ export default function Banner(props) {
         let formdata = new FormData();
         formdata.append("image", images)
 
-        axios.post('http://localhost:4000/resources/upload', formdata).then(
+        axios.post('http://localhost:4000/uploads', formdata).then(
             res => {
                 console.log(res.data)
             }
@@ -44,9 +44,10 @@ export default function Banner(props) {
     }
 
     const saveBanner = () => {
+        const imagess = images.name;
         const data = {
             nama: judul,
-            image: 'image_' + images.name
+            image: 'image_' + imagess
         }
 
         console.log(data)
@@ -64,7 +65,7 @@ export default function Banner(props) {
 
     const deleteBanner = (id) => {
         axios.delete(`http://localhost:4000/banners/${id}`).then(
-            res => swal("Sukses Hapus Banner", {icon:'success'})
+            res => {swal("Sukses Hapus Banner", {icon:'success'}); getDataBanner();}
         )
     }
 
@@ -93,7 +94,7 @@ export default function Banner(props) {
                                     <form className='form'>
                                         <div>
                                             <label>Judul :</label>
-                                            <input type={"text"} onChange={handleJudul} placeholder='Ketik disini ....' className='form-control' />
+                                            <input type={"text"} value={judul} onChange={handleJudul} placeholder='Ketik disini ....' className='form-control' />
                                         </div>
                                         <div style={{ paddingTop: 10 }}>
                                             <label>Gambar Banner :</label>
@@ -104,7 +105,7 @@ export default function Banner(props) {
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" onClick={() => {saveBanner();saveImage()}}>Save changes</button>
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={() => {saveBanner();saveImage()}}>Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -125,9 +126,9 @@ export default function Banner(props) {
                                 collection.reverse().map((res, i) => (
                                     <tr key={i}>
                                         <th scope="row">{i + 1}</th>
-                                        <td>{res.judul}</td>
-                                        <td>{res.images}</td>
-                                        <td><button className='btn btn-outline-danger' onClick={deleteBanner(res._id)}>Hapus</button></td>
+                                        <td>{res.nama}</td>
+                                        <td><img src={`http://localhost:4000/resources/upload/${res.image}`} style={{width:400, height:100, paddingLeft:190}} /></td>
+                                        <td><button className='btn btn-outline-danger' onClick={() => deleteBanner(res._id)}>Hapus</button></td>
                                     </tr>
                                 ))
                             }
