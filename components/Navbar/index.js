@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 export default function Navbar(props) {
@@ -43,7 +44,9 @@ export default function Navbar(props) {
                             </li>
                         </ul>
                         <form class="d-flex">
-                            <button class="btn btn-outline-danger" type="submit">Logout</button>
+                            <Link href={"/"}>
+                                <button class="btn btn-outline-danger">Logout</button>
+                            </Link>
                         </form>
                     </div>
                 </div>

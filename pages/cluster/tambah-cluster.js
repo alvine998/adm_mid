@@ -43,7 +43,7 @@ function TambahCluster(props) {
                             <button className='btn btn-outline-primary' style={{width:'100%'}} type='submit'>Simpan</button>
                         </div>
                         <div style={{paddingTop:10}}>
-                            <a href='/cluster' className='btn btn-outline-danger' style={{width:'100%'}}>Batal</a>
+                            <a href='/cluster' className='btn btn-outline-danger' style={{width:'100%'}}>Kembali</a>
                         </div>
 
                         <div>

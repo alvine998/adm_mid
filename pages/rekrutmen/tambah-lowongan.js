@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Router, useRouter } from 'next/router';
 import React, { useState } from 'react';
 import swal from 'sweetalert';
 import Navbar from '../../components/Navbar';
@@ -28,7 +29,6 @@ function TambahLowongan(props) {
         }
 
         console.log(data);
-
         axios.post(`http://localhost:4000/karirs`, data).then(
             res => {
                 swal("Sukses Tambah Lowongan", {icon:'success'})

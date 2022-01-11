@@ -1,12 +1,13 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { useState } from 'react'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Component, useState } from 'react'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+export default function Home(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [isLogin, setIsLogin] = useState(false);
 
   const handleEmail = (e) => {
     setEmail(e.target.value)
@@ -16,9 +17,12 @@ export default function Home() {
     setPassword(e.target.value)
   }
 
+  const router = useRouter();
+
   const onLogin = () => {
-    if(email == 'admin@midland.com' && password == '1234'){
-      alert("Sukses")
+    if (email == 'admin@midland.com' && password == '12345678') {
+      alert("Sukses");
+      router.push('/dashboard')
     } else {
       alert("Gagal")
     }
@@ -33,24 +37,26 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h2 style={{textAlign:'center'}}>Admin <br/> Midland Properti</h2>
+        <h2 style={{ textAlign: 'center' }}>Admin <br /> Midland Properti</h2>
 
         <div className={styles.sizing}>
           <form>
             <div>
               <label>Email :</label>
-              <input type={"email"} onChange={handleEmail} placeholder='example@domain.com' className='form-control' />
+              <input type={"email"} value={email} onChange={handleEmail.bind(this)} placeholder='example@domain.com' className='form-control' />
             </div>
 
-            <div style={{paddingTop:10}}>
+            <div style={{ paddingTop: 10 }}>
               <label>Password :</label>
-              <input type={"password"} onChange={handlePassword} placeholder='*******' className='form-control' />
+              <input type={"password"} value={password} onChange={handlePassword.bind(this)} placeholder='*******' className='form-control' />
             </div>
 
-            <div style={{paddingTop:10}}>
-              <button onClick={onLogin} className={'btn btn-outline-primary ' + styles.fullbtn} type='submit'>
-                Masuk
-              </button>
+            <div style={{ paddingTop: 10 }}>
+              <Link href={isLogin == true ? '/dashboard' : '/'}>
+                <button className={'btn btn-outline-primary ' + styles.fullbtn} onClick={() => onLogin()}>
+                  Masuk
+                </button>
+              </Link>
             </div>
           </form>
         </div>
