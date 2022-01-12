@@ -1,24 +1,49 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import swal from 'sweetalert';
 import Navbar from '../../components/Navbar';
 
 TambahCluster.title="Tambah Data Cluster"
 
 function TambahCluster(props) {
-    const [image, setImage] = useState(null);
-    const [imageName, setImageName] = useState(null);
-    const [judul, setJudul] = useState('');
-    const [collection, setCollection] = useState([]);
+    const [nama, setNama] = useState('');
+    const [lokasi, setLokasi] = useState('');
+    const [jumlah, setJumlah] = useState('');
+    const [tahapan, setTahapan] = useState('');
 
-    const onChangeImage = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            let img = e.target.files[0];
-            setImage(img);
-            setImageName(URL.createObjectURL(img));
-        }
+    const handleNama = (e) => {
+        setNama(e.target.value)
     }
 
-    const handleJudul = (e) => {
-        setJudul(e.target.value)
+    const handleLokasi = (e) => {
+        setLokasi(e.target.value)
+    }
+
+    const handleJumlah = (e) => {
+        setJumlah(e.target.value)
+    }
+
+    const handleTahapan = (e) => {
+        setTahapan(e.target.value)
+    }
+
+    const saveCluster = () => {
+        const data = {
+            nama: nama,
+            lokasi: lokasi,
+            jumlah: jumlah,
+            tahapan: tahapan
+        }
+
+        console.log(data)
+
+        axios.post(`http://localhost:4000/clusters`, data).then(
+            res => {
+                console.log(res.data)
+                swal("Berhasil Simpan Data Cluster", {icon:'success'})
+                setNama(""); setLokasi(""); setJumlah(""); setTahapan("")
+            }
+        )
     }
 
     return (
@@ -30,76 +55,27 @@ function TambahCluster(props) {
                     <form>
                         <div>
                             <h5>Nama Cluster</h5>
-                            <input className='form-control' placeholder='Ketik disini ....' />
+                            <input value={nama} onChange={handleNama.bind(this)} required className='form-control' placeholder='Ketik disini ....' />
+                        </div>
+                        <div style={{ paddingTop: 10 }}>
+                            <h5>Tahapan Cluster</h5>
+                            <input value={tahapan} onChange={handleTahapan.bind(this)} required className='form-control' placeholder='Ketik disini ....' />
                         </div>
                         <div style={{ paddingTop: 10 }}>
                             <h5>Lokasi Cluster</h5>
-                            <input className='form-control' placeholder='Ketik disini ....' />
+                            <input value={lokasi} onChange={handleLokasi.bind(this)} required className='form-control' placeholder='Ketik disini ....' />
                         </div>
                         <div style={{ paddingTop: 10 }}>
                             <h5>Jumlah Rumah</h5>
-                            <input className='form-control' placeholder='Ketik disini ....' />
+                            <input value={jumlah} onChange={handleJumlah.bind(this)} required className='form-control' placeholder='Ketik disini ....' />
                         </div>
 
                         <div style={{paddingTop:10}}>
-                            <button className='btn btn-outline-primary' style={{width:'100%'}} type='submit'>Simpan</button>
+                            <button className='btn btn-outline-primary' onClick={()=>saveCluster()} style={{width:'100%'}} type='submit'>Simpan</button>
                         </div>
                         <div style={{paddingTop:10}}>
                             <a href='/cluster' className='btn btn-outline-danger' style={{width:'100%'}}>Kembali</a>
-                        </div>
-
-                        <div>
-                            <a type='button' className={"btn btn-outline-primary"} style={{ marginTop: 20 }} data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Foto Cluster</a>
-
-                            {/* <!-- Modal --> */}
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Banner</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form className='form'>
-                                                <div>
-                                                    <label>Judul :</label>
-                                                    <input type={"text"} placeholder='Ketik disini ....' className='form-control' />
-                                                </div>
-                                                <div style={{ paddingTop: 10 }}>
-                                                    <label>Foto Cluster :</label>
-                                                    <input type={"file"} placeholder='Ketik disini ....' className='form-control' onChange={onChangeImage} />
-                                                    <img style={{ marginTop: 10, width: 200, height: 100, marginLeft: 130 }} src={imageName} />
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <table class="table table-stripped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Judul</th>
-                                            <th scope="col">Foto Cluster</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td><button className='btn btn-outline-danger'>Hapus</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        </div>                    
                     </form>
                 </div>
             </div>
