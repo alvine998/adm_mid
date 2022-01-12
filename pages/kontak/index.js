@@ -4,6 +4,8 @@ import { useEffect } from 'react/cjs/react.development';
 import swal from 'sweetalert';
 import Navbar from '../../components/Navbar';
 
+Kontak.title="Kontak-Kami"
+
 function Kontak(props) {
     const [nama, setNama] = useState("");
     const [email, setEmail] = useState("");

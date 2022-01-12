@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 
+Profil.title="Profil-Kami"
+
 
 export default function Profil(props) {
 

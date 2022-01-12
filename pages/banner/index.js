@@ -5,6 +5,8 @@ import styles from '../../styles/Home.module.css';
 import FormData from 'form-data';
 import swal from 'sweetalert';
 
+Banner.title = 'Banner';
+
 export default function Banner(props) {
     const [images, setImages] = useState(null);
     const [imageName, setImageName] = useState(null);

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import swal from 'sweetalert';
 import Navbar from '../../components/Navbar';
 
+Rekrutmen.title="Rekrutmen"
+
 function Rekrutmen(props) {
 
     const [collection, setCollection] = useState([]);

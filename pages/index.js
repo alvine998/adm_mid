@@ -1,7 +1,9 @@
 import Head from 'next/head'
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Component, useState } from 'react'
+import { logo } from '../assets';
 import styles from '../styles/Home.module.css'
 
 export default function Home(props) {
@@ -37,7 +39,8 @@ export default function Home(props) {
       </Head>
 
       <main className={styles.main}>
-        <h2 style={{ textAlign: 'center' }}>Admin <br /> Midland Properti</h2>
+        <Image src={logo} height={100} width={80} />
+        <h2 style={{ textAlign: 'center' }}>Midland Properti</h2>
 
         <div className={styles.sizing}>
           <form>

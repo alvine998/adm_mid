@@ -1,6 +1,8 @@
 import React from 'react'
 import Navbar from '../../components/Navbar'
 
+Cluster.title="Master Data Cluster"
+
 export default function Cluster() {
     return (
         <div>

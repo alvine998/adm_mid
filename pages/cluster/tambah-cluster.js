@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
 
+TambahCluster.title="Tambah Data Cluster"
+
 function TambahCluster(props) {
     const [image, setImage] = useState(null);
     const [imageName, setImageName] = useState(null);
