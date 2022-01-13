@@ -1,5 +1,7 @@
 import axios from 'axios'
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
+import swal from 'sweetalert';
 import Navbar from '../../components/Navbar'
 
 Cluster.title = "Master Data Cluster"
@@ -21,6 +23,27 @@ export default function Cluster() {
     useEffect(() => {
         getDataCluster();
     }, [])
+
+    const deleteCluster = (id) => {
+        axios.delete(`http://localhost:4000/clusters/${id}`).then(
+            res => {
+                swal("Berhasil Hapus Cluster", {icon:'success'});
+                getDataCluster();
+            }
+        )
+    }
+
+    const router = useRouter();
+
+    const dataCluster = (id) => {
+        localStorage.setItem('clusterKey', id)
+    }
+
+    const editCluster = (id) => {
+        dataCluster(id);
+        router.push(`/cluster/tambah-cluster?id=${id}`)
+    }
+
     return (
         <div>
             <Navbar cluster />
@@ -50,7 +73,7 @@ export default function Cluster() {
                                             <td>{res.tahapan}</td>
                                             <td>{res.lokasi}</td>
                                             <td style={{textAlign:'left'}}>{res.jumlah}</td>
-                                            <td><button className='btn btn-outline-primary' style={{marginRight:10}}>Edit</button><button className='btn btn-outline-danger'>Hapus</button></td>
+                                            <td><button onClick={()=>editCluster(res._id)} className='btn btn-outline-primary' style={{marginRight:10}}>Edit</button><button onClick={()=>{deleteCluster(res._id)}} className='btn btn-outline-danger'>Hapus</button></td>
                                         </tr>
                                     ))
                                 }

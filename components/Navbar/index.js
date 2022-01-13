@@ -1,11 +1,24 @@
+import axios from 'axios'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function Navbar(props) {
-    const onLogout = () => {
-        props.history('/')
+
+    const [collection, setCollection] = useState([]);
+
+    const getDataCluster = () => {
+        axios.get(`http://localhost:4000/clusters`).then(
+            res => {
+                const collection = res.data;
+                console.log(collection)
+                setCollection(collection)
+            }
+        )
     }
 
+    useEffect(() => {
+        getDataCluster();
+    }, [])
     return (
         <div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -30,8 +43,12 @@ export default function Navbar(props) {
                                     Cluster
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    {
+                                        collection && collection.reverse().map((res, i) =>  
+                                        (
+                                            <li key={i}><a class="dropdown-item" href="#">{res.nama}</a></li>
+                                        ))
+                                    }
                                     <li><hr class="dropdown-divider" /></li>
                                     <li><a class="dropdown-item" href="/cluster">Master Data Cluster</a></li>
                                 </ul>
