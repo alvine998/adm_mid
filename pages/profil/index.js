@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 
@@ -6,8 +7,19 @@ Profil.title="Profil-Kami"
 
 export default function Profil(props) {
 
+    const router = useRouter();
+    const getSession = () => {
+        var emails = localStorage.getItem("emailKey")
+        if(emails == null){
+            router.push('/')
+        } else {
+            console.log("Session :",emails)
+        }
+    }
+
     useEffect(() => {
-    }, [])
+        getSession();
+    },[])
 
     const [image, setImage] = useState(null);
     const [imageName, setImageName] = useState(null);

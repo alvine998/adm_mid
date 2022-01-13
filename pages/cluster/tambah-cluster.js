@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import swal from 'sweetalert';
@@ -104,7 +105,7 @@ function TambahCluster(props) {
 
     const saveorDelete = () => {
         var id = localStorage.getItem('clusterKey')
-        if(id == null){
+        if (id == null) {
             saveCluster()
         } else {
             updateCluster()
@@ -136,10 +137,12 @@ function TambahCluster(props) {
                         </div>
 
                         <div style={{ paddingTop: 10 }}>
-                            <button className='btn btn-outline-primary' onClick={() => saveorDelete()} style={{ width: '100%' }} type='submit'>Simpan</button>
+                            <Link href={"/cluster"}>
+                                <button className='btn btn-outline-primary' onClick={() => saveorDelete()} style={{ width: '100%' }} type='submit'>Simpan</button>
+                            </Link>
                         </div>
                         <div style={{ paddingTop: 10 }}>
-                            <a href='/cluster' onClick={()=>removeSession()} className='btn btn-outline-danger' style={{ width: '100%' }}>Kembali</a>
+                            <a href='/cluster' onClick={() => removeSession()} className='btn btn-outline-danger' style={{ width: '100%' }}>Kembali</a>
                         </div>
                     </form>
                 </div>

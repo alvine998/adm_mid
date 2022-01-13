@@ -16,6 +16,10 @@ export default function Navbar(props) {
         )
     }
 
+    const deleteSession = () => {
+        localStorage.removeItem("emailKey")
+    }
+
     useEffect(() => {
         getDataCluster();
     }, [])
@@ -62,7 +66,7 @@ export default function Navbar(props) {
                         </ul>
                         <form class="d-flex">
                             <Link href={"/"}>
-                                <button class="btn btn-outline-danger">Logout</button>
+                                <button onClick={()=>deleteSession()} class="btn btn-outline-danger">Logout</button>
                             </Link>
                         </form>
                     </div>

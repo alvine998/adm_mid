@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import swal from 'sweetalert';
 import Navbar from '../../components/Navbar';
@@ -6,6 +7,20 @@ import Navbar from '../../components/Navbar';
 Rekrutmen.title="Rekrutmen"
 
 function Rekrutmen(props) {
+    const router = useRouter();
+    const getSession = () => {
+        var emails = localStorage.getItem("emailKey")
+        if(emails == null){
+            router.push('/')
+        } else {
+            console.log("Session :",emails)
+        }
+    }
+
+    useEffect(() => {
+        getSession();
+        getDataLowongan();
+    },[])
 
     const [collection, setCollection] = useState([]);
 
@@ -31,10 +46,6 @@ function Rekrutmen(props) {
             }
         )
     }
-
-    useEffect(() => {
-        getDataLowongan();
-    }, [])
 
     return (
         <div>

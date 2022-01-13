@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useEffect } from 'react/cjs/react.development';
 import swal from 'sweetalert';
@@ -7,6 +8,21 @@ import Navbar from '../../components/Navbar';
 Kontak.title="Kontak-Kami"
 
 function Kontak(props) {
+    const router = useRouter();
+    const getSession = () => {
+        var emails = localStorage.getItem("emailKey")
+        if(emails == null){
+            router.push('/')
+        } else {
+            console.log("Session :",emails)
+        }
+    }
+
+    useEffect(() => {
+        getSession();
+        getDataKontak();
+    },[])
+
     const [nama, setNama] = useState("");
     const [email, setEmail] = useState("");
     const [nohp, setNohp] = useState("");
@@ -62,10 +78,6 @@ function Kontak(props) {
             }
         )
     }
-
-    useEffect(() => {
-        getDataKontak();
-    }, [])
 
     return (
         <div>

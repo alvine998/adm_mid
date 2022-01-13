@@ -19,12 +19,17 @@ export default function Home(props) {
     setPassword(e.target.value)
   }
 
+  const emailSession = (emails) => {
+    localStorage.setItem("emailKey", emails)
+  }
+
   const router = useRouter();
 
-  const onLogin = () => {
+  const onLogin = (emails) => {
     if (email == 'admin@midland.com' && password == '12345678') {
       alert("Sukses");
-      router.push('/dashboard')
+      emailSession(emails);
+      router.push('/dashboard');
     } else {
       alert("Gagal")
     }
@@ -56,7 +61,7 @@ export default function Home(props) {
 
             <div style={{ paddingTop: 10 }}>
               <Link href={isLogin == true ? '/dashboard' : '/'}>
-                <button className={'btn btn-outline-primary ' + styles.fullbtn} onClick={() => onLogin()}>
+                <button className={'btn btn-outline-primary ' + styles.fullbtn} onClick={() => onLogin(email)}>
                   Masuk
                 </button>
               </Link>
