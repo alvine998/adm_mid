@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar';
 import styles from '../../styles/Home.module.css';
 import FormData from 'form-data';
 import swal from 'sweetalert';
+import { useRouter } from 'next/router';
 
 Banner.title = 'Banner';
 
@@ -12,6 +13,16 @@ export default function Banner(props) {
     const [imageName, setImageName] = useState(null);
     const [judul, setJudul] = useState('');
     const [collection, setCollection] = useState([]);
+
+    const router = useRouter();
+    const getSession = () => {
+        var emails = localStorage.getItem("emailKey")
+        if(emails == null){
+            router.push('/')
+        } else {
+            console.log("Session :",emails)
+        }
+    }
 
     const onChangeImage = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -73,6 +84,7 @@ export default function Banner(props) {
 
     useEffect(() => {
         getDataBanner();
+        getSession();
     }, [])
 
     return (

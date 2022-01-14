@@ -8,6 +8,15 @@ Cluster.title = "Master Data Cluster"
 
 export default function Cluster() {
 
+    const getSession = () => {
+        var emails = localStorage.getItem("emailKey")
+        if(emails == null){
+            router.push('/')
+        } else {
+            console.log("Session :",emails)
+        }
+    }
+
     const [collection, setCollection] = useState([]);
 
     const getDataCluster = () => {
@@ -22,6 +31,7 @@ export default function Cluster() {
 
     useEffect(() => {
         getDataCluster();
+        getSession();
     }, [])
 
     const deleteCluster = (id) => {

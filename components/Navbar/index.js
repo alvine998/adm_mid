@@ -60,9 +60,9 @@ export default function Navbar(props) {
                             <li class="nav-item">
                                 <a className={'nav-link ' + (props.kontak ? "active" : "")} href="/kontak">Kontak Kami</a>
                             </li>
-                            <li class="nav-item">
+                            {/* <li class="nav-item">
                                 <a className={'nav-link ' + (props.profil ? "active" : "")} href="/profil">Profil Kami</a>
-                            </li>
+                            </li> */}
                         </ul>
                         <form class="d-flex">
                             <Link href={"/"}>

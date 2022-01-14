@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Router, useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import swal from 'sweetalert';
 import Navbar from '../../components/Navbar';
 
@@ -39,6 +39,20 @@ function TambahLowongan(props) {
             }
         )
     }
+
+    const router = useRouter();
+    const getSession = () => {
+        var emails = localStorage.getItem("emailKey")
+        if(emails == null){
+            router.push('/')
+        } else {
+            console.log("Session :",emails)
+        }
+    }
+
+    useEffect(() => {
+        getSession();
+    },[])
 
     return (
         <div>

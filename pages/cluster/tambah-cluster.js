@@ -14,6 +14,16 @@ function TambahCluster(props) {
     const [tahapan, setTahapan] = useState('');
     // const [collection, setCollection] = useState([]);
 
+    const router = useRouter();
+    const getSession = () => {
+        var emails = localStorage.getItem("emailKey")
+        if(emails == null){
+            router.push('/')
+        } else {
+            console.log("Session :",emails)
+        }
+    }
+
     const handleNama = (e) => {
         setNama(e.target.value)
     }
@@ -101,6 +111,7 @@ function TambahCluster(props) {
 
     useEffect(() => {
         getDataCluster();
+        getSession();
     }, [])
 
     const saveorDelete = () => {
